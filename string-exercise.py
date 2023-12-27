@@ -42,3 +42,4 @@ def exercise17(Str):
 
 exercise17("Emma25 is Data scientist50 and AI Expert")
 # Exercise 18: Replace each special symbol with # in the following string
+# Exercise 18: Replace each special symbol with # in the following string
