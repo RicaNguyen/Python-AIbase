@@ -1,34 +1,12 @@
-# graph = {
-# 'A' : ['B','C'],
-# 'B' : ['D', 'E'],
-# 'C' : ['F'],
-# 'D' : [],
-# 'E' : ['F'],
-# 'F' : []
-# }
-# visited =[]
-# queue =[]
-# def BFS(visited,graph,start, end):
-#     queue.append(start)
-#     while queue:
-#         s=queue.pop(0)
-#         print(s, end=' ')
-#         if s==end:
-#             return
-#         visited.append(s)
-#         for neighbor in graph[s]:
-#             if neighbor not in visited:
-#                 queue.append(neighbor)
-
-# BFS(visited,graph,'A','E')
-#########################################
 graph = {
-    '1': ['2', '3', '4'],
-    '2': ['5', '6'],
-    '5': ['9', '10'],
-    '4': ['7', '8'],
-    '7': ['11', '12']
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
 }
+
 graph1 = {
     's': ['d', 'e', 'p'],
     'a': [],
@@ -43,6 +21,7 @@ graph1 = {
     'q': [],
     'r': ['f']
 }
+
 graph2 = {
     'a': ['b', 'c'],
     'b': ['a', 'd'],
@@ -72,23 +51,59 @@ graph3 = {
 }
 
 
-def bfs(graph, start, end):
+def BFS(graph, start, end):
+    visited = []  # List to keep track of visited nodes.
+    queue = []  # Initialize a queue
+    queue.append(start)
+    while queue:
+        s = queue.pop(0)
+
+        print(s, end=" ")
+        if s == end:
+            print("", end="\n")
+            return
+        visited.append(s)
+        for neighbor in graph[s]:
+            if neighbor not in visited:
+                queue.append(neighbor)
+
+
+# Driver Code
+
+print("BFS print visited")
+BFS(graph, 'A', 'E')
+BFS(graph1, 's', 'g')
+BFS(graph2, 's', 'g')
+BFS(graph3, 'a', 'g')
+#########################################
+
+
+def BFS_path(graph, start, end):
+    # maintain a queue of paths
     visited = []
     queue = []
+
+    # push the first path into the queue
     queue.append([start])
     while queue:
+        # get the first path from the queue
         path = queue.pop(0)
+        # get the last node from the path
         node = path[-1]
+        # path found
         if node == end:
             return path
         visited.append(node)
+        # enumerate all adjacent nodes, construct a new path and push it into the queue
         for neighbour in graph.get(node, []):
             if neighbour not in visited:
                 new_path = list(path)
                 new_path.append(neighbour)
                 queue.append(new_path)
+    return "No path"
 
 
-print(bfs(graph, '1', '11'))
-print(bfs(graph2, 'a', 'g'))
-print(bfs(graph3, 'a', 'g'))
+print("BFS print path")
+print(BFS_path(graph1, 's', 'g'))
+print(BFS_path(graph2, 's', 'g'))
+print(BFS_path(graph3, 'a', 'g'))

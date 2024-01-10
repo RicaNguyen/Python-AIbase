@@ -1,3 +1,11 @@
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
 
 graph1 = {
     's': ['d', 'e', 'p'],
@@ -13,6 +21,7 @@ graph1 = {
     'q': [],
     'r': ['f']
 }
+
 graph2 = {
     'a': ['b', 'c'],
     'b': ['a', 'd'],
@@ -42,48 +51,56 @@ graph3 = {
 }
 
 
-# DFS with stack
+def getIndexMaxNodeNeighbor(graph, stack):
+    maxNodeNeighbor = []
+    deepLength = -1
+    for stackItem in stack:
+        lastNode = stackItem[-1]
+        listOfNeighborLastNode = graph.get(lastNode, [])
+        if len(listOfNeighborLastNode) >= deepLength:
+            deepLength = len(listOfNeighborLastNode)
+            maxNodeNeighbor = stackItem
+    return stack.index(maxNodeNeighbor)
+
+# DFS with stack, and strategy deep node
+
+
 def DFS(graph, start, end):
-    print(f'DFS start {start} to {end}:')
-    visited = []
-    stack = []
-    stack.append([start])
-
+    visited = []  # List to keep track of visited nodes.
+    stack = []  # Initialize a stack
+    stack.append(start)
     while stack:
-        path = stack.pop()
+        # pop node having highest deep
+        index = getIndexMaxNodeNeighbor(graph, stack)
+        s = stack.pop(index)
 
-        node = path[-1]
-        if node == end:
-            return path
-        visited.append(node)
-        for neighbor in graph.get(node, []):
+        print(s, end=" ")
+        if s == end:
+            print("", end="\n")
+            return
+        visited.append(s)
+        for neighbor in graph[s]:
             if neighbor not in visited:
-                new_path = list(path)
-                new_path.append(neighbor)
-                stack.append(new_path)
+                stack.append(neighbor)
 
 
-print(DFS(graph1, 's', 'g'))
-print(DFS(graph2, 's', 'g'))
-print(DFS(graph2, 'a', 'g'))
+# Driver Code
+
+print("DFS print visited")
+DFS(graph, 'A', 'E')
+DFS(graph1, 's', 'g')
+DFS(graph2, 's', 'g')
+DFS(graph3, 'a', 'g')
 
 
 # DFS with stack, and strategy deep node
-def DFSWithStrategy(graph, start, end):
-    print(f'DFS start {start} to {end} - with strategy deep node:')
+def DFS_path(graph, start, end):
     visited = []
     stack = []
     stack.append([start])
 
-    def getIndexMaxNodeNeighbor(stack):
-        maxNodeNeighbor = []
-        for stackItem in stack:
-            if len(stackItem) > len(maxNodeNeighbor):
-                maxNodeNeighbor = stackItem
-        return stack.index(maxNodeNeighbor)
-
     while stack:
-        index = getIndexMaxNodeNeighbor(stack)
+        index = getIndexMaxNodeNeighbor(graph, stack)
         path = stack.pop(index)
 
         node = path[-1]
@@ -95,8 +112,10 @@ def DFSWithStrategy(graph, start, end):
                 new_path = list(path)
                 new_path.append(neighbor)
                 stack.append(new_path)
+    return "No path"
 
 
-print(DFSWithStrategy(graph1, 's', 'g'))
-print(DFSWithStrategy(graph2, 's', 'g'))
-print(DFSWithStrategy(graph3, 'a', 'g'))
+print("DFS print path")
+print(DFS_path(graph1, 's', 'g'))
+print(DFS_path(graph2, 's', 'g'))
+print(DFS_path(graph3, 'a', 'g'))

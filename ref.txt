@@ -1,0 +1,4 @@
+https://ioflood.com/blog/append-to-string-python
+https://www.w3schools.com/python/python_for_loops.asp
+https://www.askpython.com/python/array/print-an-array-in-python
+https://java2blog.com/convert-string-array-to-int-array-python/
