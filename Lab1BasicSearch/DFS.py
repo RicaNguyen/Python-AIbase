@@ -52,17 +52,17 @@ graph3 = {
 
 
 def getIndexMaxNodeNeighbor(graph, stack):
-    maxNodeNeighbor = []
+    indexDeepNodeNeighbor = -1
     deepLength = -1
-    for stackItem in stack:
+    for stackItemIndex, stackItem in enumerate(stack):
         lastNode = stackItem[-1]
-        listOfNeighborLastNode = graph.get(lastNode, [])
-        if len(listOfNeighborLastNode) >= deepLength:
-            deepLength = len(listOfNeighborLastNode)
-            maxNodeNeighbor = stackItem
-    return stack.index(maxNodeNeighbor)
-
-# DFS with stack, and strategy deep node
+        expandNeighborOfLastNode = graph.get(lastNode, [])
+        # if  expandNeighborOfLastNode > deepLength then expandNeighborOfLastNode = deepLength
+        # use operator >= to pick LIFO stack
+        if len(expandNeighborOfLastNode) >= deepLength:
+            deepLength = len(expandNeighborOfLastNode)
+            indexDeepNodeNeighbor = stackItemIndex
+    return indexDeepNodeNeighbor
 
 
 def DFS(graph, start, end):
