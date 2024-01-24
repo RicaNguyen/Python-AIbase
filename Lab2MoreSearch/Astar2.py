@@ -69,6 +69,7 @@ class Graph:
 
                 reconst_path.reverse()
 
+                print(f'Number of nodes opened: {count_open}')
                 print(f'Visited: <{', '.join(visited)}>')
                 print('Path found: {}'.format(reconst_path))
                 return reconst_path
@@ -78,6 +79,7 @@ class Graph:
                 # if the current node isn't in both open_list and closed_list
                 # add it to open_list and note n as it's parent
                 if m not in open_list and m not in closed_list:
+                    count_open = count_open + 1
                     open_list.add(m)
                     parents[m] = n
                     g[m] = g[n] + weight
@@ -110,6 +112,7 @@ class Graph:
         # haven't all been inspected, starts off with the start node
         # closed_list is a list of nodes which have been visited
         # and who's neighbors have been inspected
+        count_open = 0
         open_list = set([start_node])
         closed_list = set([])
 
@@ -151,6 +154,7 @@ class Graph:
 
                 reconst_path.reverse()
 
+                print(f'Number of nodes opened: {count_open}')
                 print('Path found: {}'.format(reconst_path))
                 return reconst_path
 
@@ -159,6 +163,7 @@ class Graph:
                 # if the current node isn't in both open_list and closed_list
                 # add it to open_list and note n as it's parent
                 if m not in open_list and m not in closed_list:
+                    count_open = count_open + 1
                     open_list.add(m)
                     parents[m] = n
                     g[m] = g[n] + weight
@@ -191,6 +196,7 @@ class Graph:
         # haven't all been inspected, starts off with the start node
         # closed_list is a list of nodes which have been visited
         # and who's neighbors have been inspected
+        count_open = 0
         open_list = set([start_node])
         closed_list = set([])
 
@@ -233,6 +239,7 @@ class Graph:
 
                 reconst_path.reverse()
 
+                print(f'Number of nodes opened: {count_open}')
                 print('Path found: {}'.format(reconst_path))
                 return reconst_path
 
@@ -241,6 +248,7 @@ class Graph:
                 # if the current node isn't in both open_list and closed_list
                 # add it to open_list and note n as it's parent
                 if m not in open_list and m not in closed_list:
+                    count_open = count_open + 1
                     open_list.add(m)
                     parents[m] = n
                     g[m] = g[n] + weight
@@ -385,3 +393,6 @@ graph3_h1 = Graph(adjacency_list_g3, heuristic_g3_h1)
 graph3_h2 = Graph(adjacency_list_g3, heuristic_g3_h2)
 graph3_h1.a_star_algorithm('A', 'G')
 graph3_h2.a_star_algorithm('A', 'G')
+
+graph3_h1.ucs_algorithm('A', 'G')
+graph3_h1.greedy_algorithm('A', 'G')
